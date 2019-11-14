@@ -1,6 +1,7 @@
 import unittest
 from random import randint
 from recursion import *
+from ticTacToe import TicTacToe
 
 
 class TestCases(unittest.TestCase):
@@ -56,6 +57,39 @@ class TestCases(unittest.TestCase):
     def test_binary_sum(self):
         sequence = [_ for _ in range(100)]
         self.assertEqual(binary_sum(sequence, 1, 20), sum(sequence[1:20]))
+
+
+class TicTacToeTest(unittest.TestCase):
+
+    def test_draw(self):
+        game = TicTacToe()
+
+        game.mark(1, 1), game.mark(0, 2)
+        game.mark(2, 2), game.mark(0, 0)
+        game.mark(0, 1), game.mark(2, 1)
+        game.mark(1, 2), game.mark(1, 0)
+        game.mark(2, 0)
+
+        winner = game.winner()
+        self.assertEqual(winner, None)
+    
+    def test_X_win(self):
+        game = TicTacToe()
+        game.mark(0, 0), game.mark(0, 2)
+        game.mark(1, 0), game.mark(1, 1)
+        game.mark(2, 0)
+
+        winner = game.winner()
+        self.assertEqual(winner, 'X')
+
+    def test_O_win(self):
+        game = TicTacToe()
+        game.mark(0, 1), game.mark(1, 2)
+        game.mark(0, 2), game.mark(1, 1)
+        game.mark(2, 0), game.mark(1, 0)
+
+        winner = game.winner()
+        self.assertEqual(winner, 'O')
 
 if __name__ == "__main__":
     unittest.main()
